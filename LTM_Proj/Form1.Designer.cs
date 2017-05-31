@@ -89,6 +89,7 @@
             this.btnDiscnt.TabIndex = 2;
             this.btnDiscnt.Text = "DISCONNECT";
             this.btnDiscnt.UseVisualStyleBackColor = true;
+            this.btnDiscnt.Click += new System.EventHandler(this.btnDiscnt_Click);
             // 
             // Form1
             // 

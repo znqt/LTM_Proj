@@ -13,56 +13,63 @@ using System.Threading;
 
 namespace LTM_Proj
 {
+    
     public partial class Form1 : Form
     {
         public Form1()
         {
             InitializeComponent();
+            CheckForIllegalCrossThreadCalls = false;
             
         }
         Root ROOT = new Root();
         private Object thislock = new Object();
-        delegate void UpdateLV();
+        public static int flag = 1;
         private void btnStart_Click(object sender, EventArgs e)
         {
             ROOT.Start();
-          //  Thread t = new Thread(DisplayListView);
-            //t.Start();
-            DisplayListView();
+            Thread t = new Thread(DisplayListView);
+            t.Start();
         }
 
         private void DisplayListView()
         {
             while (true)
-            {
-                if (this.lvServers.InvokeRequired)
+            {         
+                if (flag==1)
                 {
-                    UpdateLV d = new UpdateLV(DisplayListView);
-                    this.Invoke(d);
-                }
-                else
-                {
-                     int j = 1;
-                    foreach (Server i in ROOT.GetListServers())
-                    {
-                        if (i != null)
-                        {
-                            string[] str = { j.ToString(), i.Ip, i.Port, i.status };
-                            ListViewItem item = new ListViewItem(str);
-                            lvServers.Items.Add(item);
-                            j++;
-                        }
-                    }
+                    UpdateListView();
                 }
             }
+        }
+        void UpdateListView()
+        {
+            int j = 1;
+            lvServers.Items.Clear();
+            foreach (Server i in ROOT.GetListServers())
+            {
+                if (i != null)
+                {
+                    string[] str = { j.ToString(), i.Ip, i.Port, i.status };
+                    ListViewItem item = new ListViewItem(str);
+                    lvServers.Items.Add(item);
+                    j++;
+                }
+            }
+            flag = 0;
+        }
+
+        private void btnDiscnt_Click(object sender, EventArgs e)
+        {
+            ROOT.Disconnect();
         }
        
     }
     public class Server
     {
-        public string Ip{get;set;}
-        public string Port { get; set; }
-        public string status{get;set;}
+        public string Ip = "";
+        public string Port = "";
+        public string status = "";
         public Server(string _ip,string _port)
         {
             Ip = _ip;
@@ -87,8 +94,6 @@ namespace LTM_Proj
         public Root(int n=100)
         {
             NumbersOfServers = n;
-            ListServers = new Server[NumbersOfServers];
-       
         }
         public void Start()
         {
@@ -97,6 +102,7 @@ namespace LTM_Proj
                 //Init
                 socket = new Socket[NumbersOfServers];
                 clientSock = new Socket[100];
+                ListServers = new Server[NumbersOfServers];
                 ipad = IPAddress.Parse("127.0.0.1");
                 port = 12000;
                 portClient = 13000;
@@ -119,8 +125,15 @@ namespace LTM_Proj
         }
         public void Disconnect()
         {
-            tcpRoot.Stop();
-            tcpForClient.Stop();
+            try
+            {
+                tcpRoot.Stop();
+                tcpForClient.Stop();
+            }
+            catch (Exception err)
+            {
+                MessageBox.Show(err.StackTrace);
+            }
         }
         public Server[] GetListServers()
         {
@@ -131,37 +144,51 @@ namespace LTM_Proj
             
             while (true)
             {
-               
-                socket[count] = tcpRoot.AcceptSocket();
-                //lock
-                if (count > NumbersOfServers)
+                try
                 {
-                    count = 0;
+                    socket[count] = tcpRoot.AcceptSocket();
+                    //lock
+                    if (count > NumbersOfServers)
+                    {
+                        count = 0;
+                    }
+                    else
+                    {
+                        count++;
+                    }
+                    Thread t = new Thread(WorkerServer);
+                    t.Start(count - 1);
                 }
-                else
+                catch (Exception err)
                 {
-                    count++;
+                    MessageBox.Show(err.StackTrace);
                 }
-                Thread t = new Thread(WorkerServer);
-                t.Start(count - 1);
             }
         }
         static void HandleClient()
         {
-            while (true)
+            try
             {
-                clientSock[count2] = tcpForClient.AcceptSocket();
-                //lock
-                if (count2 > 100)
+                while (true)
                 {
-                    count2 = 0;
+                    clientSock[count2] = tcpForClient.AcceptSocket();
+                    Form1.flag = 1;
+                    //lock
+                    if (count2 > 100)
+                    {
+                        count2 = 0;
+                    }
+                    else
+                    {
+                        count2++;
+                    }
+                    Thread t = new Thread(WorkerClient);
+                    t.Start(count2 - 1);
                 }
-                else
-                {
-                    count2++;
-                }
-                Thread t = new Thread(WorkerClient);
-                t.Start(count2 - 1);
+            }
+            catch (Exception err)
+            {
+                MessageBox.Show(err.StackTrace);
             }
         }
 
@@ -171,7 +198,32 @@ namespace LTM_Proj
             {
                 for (int i = 0; i < NumbersOfServers; i++)
                 {
-                    if (ListServers[i] == a)
+                    if (ListServers[i] != null)
+                    {
+                        if (ListServers[i].Ip == a.Ip && ListServers[i].Port == a.Port)
+                        {
+                            return i;
+                        }
+                    }
+                }
+            }
+            return -1;
+        }
+
+        private static int FindFreePlace()
+        {
+            lock (lock1)
+            {
+                for (int i = 0; i < NumbersOfServers; i++)
+                {
+                    if (ListServers[i] != null)
+                    {
+                        if (ListServers[i].Port=="-1")
+                        {
+                            return i;
+                        }
+                    }
+                    else
                     {
                         return i;
                     }
@@ -188,6 +240,7 @@ namespace LTM_Proj
                 try
                 {
                     int k = socket[index].Receive(recv);
+                    Form1.flag = 1;
                     string Data = "";
                     for (int i = 0; i < k; i++)
                     {
@@ -199,9 +252,20 @@ namespace LTM_Proj
                     string servPort = Data.Substring(j + 1, t - 1 - j);
                     string Status = Data.Substring(t + 1, Data.Length - t - 1);
                     Server tmp = new Server(servIp, servPort);
-                    j = IndexOfServ(tmp);
-                    ListServers[index] = tmp;
-                    ListServers[index].status = Status;
+                    int m = IndexOfServ(tmp);
+                    if (m == -1)
+                    {
+                        int place = FindFreePlace();
+                        if (place != -1)
+                        {
+                            ListServers[place] = tmp;
+                            ListServers[place].status = Status;
+                        }
+                    }
+                    else
+                    {
+                        ListServers[m].status = Status;
+                    }
                 }
                 catch (Exception err)
                 {
