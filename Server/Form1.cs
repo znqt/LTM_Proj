@@ -17,13 +17,17 @@ namespace Server
     {
         public static IPAddress ipAd;
         public static string servIp = "127.0.0.1";
-        public static string servPort = "14000";
+        public static string servPort;
         public static TcpListener server;
         public static int count = 0;
         public static Socket[] socket;
         public Form1()
         {
             InitializeComponent();
+            ipAd = IPAddress.Parse(servIp);
+            server = new TcpListener(ipAd, 0);
+            server.Start();
+            servPort = ((IPEndPoint)server.LocalEndpoint).Port.ToString();
         }
 
         private void btnSendStatus_Click(object sender, EventArgs e)
@@ -35,7 +39,16 @@ namespace Server
             tcpclnt.Connect("127.0.0.1", 12000);
             stm = tcpclnt.GetStream();
             ASCIIEncoding asen = new ASCIIEncoding();
-            byteSend = asen.GetBytes(servIp+":"+servPort+";"+ count.ToString());
+            string status;
+            if (count > 0)
+            {
+                status = "1";
+            }
+            else
+            {
+                status = "0";
+            }
+            byteSend = asen.GetBytes(servIp+":"+servPort+";"+ status);
             stm.Write(byteSend, 0, byteSend.Length);
             tcpclnt.Close();
         }
@@ -43,19 +56,17 @@ namespace Server
         private void btnStart_Click(object sender, EventArgs e)
         {
             socket = new Socket[100];
-            ipAd = IPAddress.Parse(servIp);
-            server = new TcpListener(ipAd, int.Parse(servPort));
             server.Start();      
             while (true)
             {
                 socket[count] = server.AcceptSocket();
-
                 count++;
                 Thread t = new Thread(ServeClient);
                 t.Start(count - 1);
             }
             server.Stop();
         }
+
         static void ServeClient(object obj)
         {
             int index = (Int32)obj;

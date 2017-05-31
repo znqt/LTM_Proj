@@ -160,15 +160,14 @@ namespace LTM_Proj
             Socket serverSocket = (Socket) obj;
             byte[] recv = new byte[100];
             int k = serverSocket.Receive(recv);
-            Form1.flag = 1;
             string Data = System.Text.Encoding.UTF8.GetString(recv);
             //split data
             int j = Data.IndexOf(":");
             int t = Data.IndexOf(";");
             string servIp = Data.Substring(0, j);
             string servPort = Data.Substring(j + 1, t - 1 - j);
-            string Status = Data.Substring(t + 1, Data.Length - t - 1);
-            Helper.log("Connect: " + servIp + ":" + servPort + ". Status: " + Status.Length);
+            string Status = Data.Substring(t + 1, 1);
+            Helper.log("Connect: " + servIp + ":" + servPort + ". Status: " + Status);
 
             Server tmp = new Server(servIp, servPort);
             int m = IndexOfServ(tmp);
@@ -179,11 +178,13 @@ namespace LTM_Proj
                 {
                     ListServers[place] = tmp;
                     ListServers[place].status = Status;
+                    Helper.log("Added to slot " + place.ToString());
                 }
             }
             else
             {
                 ListServers[m].status = Status;
+                Helper.log("Updated in slot " + m.ToString());
             }
             Form1.flag = 1;
         }
