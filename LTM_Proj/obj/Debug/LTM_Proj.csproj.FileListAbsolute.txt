@@ -1,0 +1,8 @@
+D:\Workspace\W\LTM\LTM_Proj\LTM_Proj\bin\Debug\LTM_Proj.exe
+D:\Workspace\W\LTM\LTM_Proj\LTM_Proj\bin\Debug\LTM_Proj.pdb
+D:\Workspace\W\LTM\LTM_Proj\LTM_Proj\obj\Debug\LTM_Proj.csprojResolveAssemblyReference.cache
+D:\Workspace\W\LTM\LTM_Proj\LTM_Proj\obj\Debug\LTM_Proj.Form1.resources
+D:\Workspace\W\LTM\LTM_Proj\LTM_Proj\obj\Debug\LTM_Proj.Properties.Resources.resources
+D:\Workspace\W\LTM\LTM_Proj\LTM_Proj\obj\Debug\LTM_Proj.csproj.GenerateResource.Cache
+D:\Workspace\W\LTM\LTM_Proj\LTM_Proj\obj\Debug\LTM_Proj.exe
+D:\Workspace\W\LTM\LTM_Proj\LTM_Proj\obj\Debug\LTM_Proj.pdb
