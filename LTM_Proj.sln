@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.21005.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.26403.7
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LTM_Proj", "LTM_Proj\LTM_Proj.csproj", "{7D79E341-013A-4E81-8EE4-278F3ED889C7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Server", "Server\Server.csproj", "{D381EE9A-A708-44A0-9EC2-DE3E98080893}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{7D79E341-013A-4E81-8EE4-278F3ED889C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7D79E341-013A-4E81-8EE4-278F3ED889C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7D79E341-013A-4E81-8EE4-278F3ED889C7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D381EE9A-A708-44A0-9EC2-DE3E98080893}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D381EE9A-A708-44A0-9EC2-DE3E98080893}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D381EE9A-A708-44A0-9EC2-DE3E98080893}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D381EE9A-A708-44A0-9EC2-DE3E98080893}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
