@@ -72,6 +72,7 @@ namespace LTM_Proj
 
         public static void checkTimeout()
         {
+            Helper.log("Run checkTimeout.");
             lock (lock1)
             {
                 for (int i = 0; i < NumbersOfServers; i++)
@@ -89,11 +90,12 @@ namespace LTM_Proj
                     }
                 }
             }
+            Form1.flag = 1;
         }
 
         static void HandleServer()
         {
-            Helper.log("Thread: HandleServer started.");
+            Helper.log("Start thread: HandleServer started.");
             while (true)
             {
                 try
@@ -111,7 +113,7 @@ namespace LTM_Proj
 
         static void HandleClient()
         {
-            Helper.log("Thread: HandleClient started.");
+            Helper.log("Start thread: HandleClient started.");
             while (true)
             {
                 try
