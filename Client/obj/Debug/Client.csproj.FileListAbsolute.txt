@@ -6,3 +6,11 @@ C:\Users\Sun\Desktop\test\Client\obj\Debug\Client.csproj.GenerateResource.Cache
 C:\Users\Sun\Desktop\test\Client\obj\Debug\Client.exe
 C:\Users\Sun\Desktop\test\Client\obj\Debug\Client.pdb
 C:\Users\Sun\Desktop\test\Client\obj\Debug\Client.csprojResolveAssemblyReference.cache
+C:\Users\OS\Desktop\New folder (3)\LTM_Proj-master\Client\obj\Debug\Client.exe
+C:\Users\OS\Desktop\New folder (3)\LTM_Proj-master\Client\obj\Debug\Client.pdb
+C:\Users\OS\Desktop\New folder (3)\LTM_Proj-master\Client\bin\Debug\Client.exe
+C:\Users\OS\Desktop\New folder (3)\LTM_Proj-master\Client\bin\Debug\Client.pdb
+C:\Users\OS\Desktop\New folder (3)\LTM_Proj-master\Client\obj\Debug\Client.csprojResolveAssemblyReference.cache
+C:\Users\OS\Desktop\New folder (3)\LTM_Proj-master\Client\obj\Debug\Client.Form1.resources
+C:\Users\OS\Desktop\New folder (3)\LTM_Proj-master\Client\obj\Debug\Client.Properties.Resources.resources
+C:\Users\OS\Desktop\New folder (3)\LTM_Proj-master\Client\obj\Debug\Client.csproj.GenerateResource.Cache
