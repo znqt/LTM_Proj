@@ -84,7 +84,7 @@
             // lbRecv
             // 
             this.lbRecv.AutoSize = true;
-            this.lbRecv.Location = new System.Drawing.Point(203, 114);
+            this.lbRecv.Location = new System.Drawing.Point(16, 53);
             this.lbRecv.Name = "lbRecv";
             this.lbRecv.Size = new System.Drawing.Size(66, 13);
             this.lbRecv.TabIndex = 8;
@@ -99,7 +99,7 @@
             // 
             // btnStartServer
             // 
-            this.btnStartServer.Location = new System.Drawing.Point(471, 9);
+            this.btnStartServer.Location = new System.Drawing.Point(19, 89);
             this.btnStartServer.Name = "btnStartServer";
             this.btnStartServer.Size = new System.Drawing.Size(106, 68);
             this.btnStartServer.TabIndex = 10;
@@ -109,7 +109,7 @@
             // 
             // btnDis
             // 
-            this.btnDis.Location = new System.Drawing.Point(471, 86);
+            this.btnDis.Location = new System.Drawing.Point(163, 89);
             this.btnDis.Name = "btnDis";
             this.btnDis.Size = new System.Drawing.Size(106, 68);
             this.btnDis.TabIndex = 1;
@@ -121,7 +121,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(589, 169);
+            this.ClientSize = new System.Drawing.Size(291, 169);
             this.Controls.Add(this.btnStartServer);
             this.Controls.Add(this.tbPort);
             this.Controls.Add(this.lbRecv);

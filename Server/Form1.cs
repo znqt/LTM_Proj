@@ -54,7 +54,7 @@ namespace Server
                 LastTime = DateTime.Now;
                 lbIP.Text = servIp;
 
-                lbCountClient.Text = "0";
+               // lbCountClient.Text = "0";
                 socket = new Socket[100];
                 server.Start();
                 Thread t = new Thread(LoopServer);
@@ -155,13 +155,18 @@ namespace Server
             int k = socket[index].Receive(b);
             //recv data
             string Data = System.Text.Encoding.UTF8.GetString(b);
-            lbRecv.Text = Data;
-            //resspond
-            string str = "Hello Client";
+            int j=Data.IndexOf(";");
+            int num1 = int.Parse(Data.Substring(0, j));
+            int num2 = int.Parse(Data.Substring(j + 1, Data.Length));
+            int res = num1 + num2;
+            //respond
+            string str = res.ToString();
             ASCIIEncoding asen = new ASCIIEncoding();
+            Thread.Sleep(10000);
             socket[index].Send(asen.GetBytes(str));
           
             socket[index].Close();
         }
+        
     }
 }
