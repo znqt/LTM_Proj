@@ -56,7 +56,12 @@ namespace Server
         private void btnStart_Click(object sender, EventArgs e)
         {
             socket = new Socket[100];
-            server.Start();      
+            server.Start();
+            Thread t = new Thread(LoopServer);
+            t.Start();
+        }
+        void LoopServer()
+        {
             while (true)
             {
                 socket[count] = server.AcceptSocket();
@@ -64,9 +69,7 @@ namespace Server
                 Thread t = new Thread(ServeClient);
                 t.Start(count - 1);
             }
-            server.Stop();
         }
-
         static void ServeClient(object obj)
         {
             int index = (Int32)obj;
