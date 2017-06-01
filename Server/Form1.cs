@@ -149,25 +149,32 @@ namespace Server
         }
         void ServeClient(object obj)
         {
-            int index = (Int32)obj;
+            try
+            {
+                int index = (Int32)obj;
 
-            byte[] b = new byte[100];
-            int k = socket[index].Receive(b);
-            //recv data
-            string Data = "";
-            Data = System.Text.Encoding.UTF8.GetString(b);
+                byte[] b = new byte[100];
+                int k = socket[index].Receive(b);
+                //recv data
+                string Data = "";
+                Data = System.Text.Encoding.UTF8.GetString(b);
 
-            int j=Data.IndexOf(";");
-            int num1 = int.Parse(Data.Substring(0, j));
-            int num2 = int.Parse(Data.Substring(j + 1, k-j-1));
-            int res = num1 + num2;
-            //respond
-            string str = res.ToString();
-            ASCIIEncoding asen = new ASCIIEncoding();
-            Thread.Sleep(10000);
-            socket[index].Send(asen.GetBytes(str));
-          
-            socket[index].Close();
+                int j = Data.IndexOf(";");
+                int num1 = int.Parse(Data.Substring(0, j));
+                int num2 = int.Parse(Data.Substring(j + 1, k - j - 1));
+                int res = num1 + num2;
+                //respond
+                string str = res.ToString();
+                ASCIIEncoding asen = new ASCIIEncoding();
+                Thread.Sleep(10000);
+                socket[index].Send(asen.GetBytes(str));
+
+                socket[index].Close();
+            }
+            catch
+            {
+                return;
+            }
         }
         
     }
