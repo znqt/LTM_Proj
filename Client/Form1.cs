@@ -26,11 +26,10 @@ namespace Client
         private TcpClient tcpclnt;
         private DateTime lasttime = DateTime.Now;
         Stream stm;
-        private void ReqAndResp()
+        private void ReqAndResp(string na,string nb)
         {
             tcpclnt = new TcpClient();
-            byte[] byteSend;
-            byte[] byteReceive;
+
             if (currIp != "" && currPort != "")
             {
                 tcpclnt.Connect(currIp, int.Parse(currPort));
@@ -39,24 +38,31 @@ namespace Client
             {
                 return;
             }
+            byte[] byteSend;
+            byte[] byteReceive;
             tcpclnt.ReceiveTimeout = 15000;
             stm = tcpclnt.GetStream();
             ASCIIEncoding asen = new ASCIIEncoding();
-            string send = tbNuma.Text + ";" + tbNumb.Text;
+            string send = na + ";" + nb;
             byteSend = asen.GetBytes(send);
             stm.Write(byteSend, 0, byteSend.Length);
-
+            if (na == "c" & nb == "c")
+            {
+                return;
+            }
             byteReceive = new byte[100];
             int k = stm.Read(byteReceive, 0, 100);
             string recv = System.Text.Encoding.UTF8.GetString(byteReceive);
             tbResult.Text = recv;
+            
+            
             tcpclnt.Close();
         }
         private void btnConnectServer_Click(object sender, EventArgs e)
         {
             try
             {
-                ReqAndResp();
+                ReqAndResp(tbNuma.Text, tbNumb.Text);
             }
             catch (Exception ex)
             {
@@ -67,7 +73,7 @@ namespace Client
                 b.Join();
                 if (currIp != "" && currPort != "")
                 {
-                    ReqAndResp();
+                    ReqAndResp(tbNuma.Text, tbNumb.Text);
                 }
             }
         }
@@ -101,6 +107,7 @@ namespace Client
             int j = Data.IndexOf(":");
             currIp = Data.Substring(0, j);
             currPort = Data.Substring(j + 1, k - 1 - j);
+            ReqAndResp("c", "c");
             lock (lock1)
             {
                 lbIP.Text = currIp;
