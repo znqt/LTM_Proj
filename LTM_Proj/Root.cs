@@ -224,6 +224,7 @@ namespace LTM_Proj
                             free = ListServers[f];
                             str = free.Ip + ":" + free.Port;
                             ListServers[f].status = "1";
+                            Form1.flag = 1;
                         }
                     }
                     ASCIIEncoding asen = new ASCIIEncoding();

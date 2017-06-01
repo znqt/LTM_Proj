@@ -24,10 +24,13 @@ namespace Server
         public Form1()
         {
             InitializeComponent();
+            CheckForIllegalCrossThreadCalls = false;
             ipAd = IPAddress.Parse(servIp);
             server = new TcpListener(ipAd, 0);
             server.Start();
             servPort = ((IPEndPoint)server.LocalEndpoint).Port.ToString();
+            lbIP.Text = servIp;
+            lbPORT.Text = servPort;
         }
 
         private void btnSendStatus_Click(object sender, EventArgs e)
@@ -55,6 +58,7 @@ namespace Server
 
         private void btnStart_Click(object sender, EventArgs e)
         {
+            lbCountClient.Text = "0";
             socket = new Socket[100];
             server.Start();
             Thread t = new Thread(LoopServer);
@@ -66,20 +70,22 @@ namespace Server
             {
                 socket[count] = server.AcceptSocket();
                 count++;
+                lbCountClient.Text = count.ToString();
                 Thread t = new Thread(ServeClient);
                 t.Start(count - 1);
             }
         }
-        static void ServeClient(object obj)
+        void ServeClient(object obj)
         {
             int index = (Int32)obj;
 
             byte[] b = new byte[100];
             int k = socket[index].Receive(b);
             //recv data
-                
+            string Data = System.Text.Encoding.UTF8.GetString(b);
+            lbRecv.Text = Data;
             //resspond
-            String str = "";
+            string str = "Hello Client";
             ASCIIEncoding asen = new ASCIIEncoding();
             socket[index].Send(asen.GetBytes(str));
           
