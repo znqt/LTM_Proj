@@ -142,6 +142,10 @@ namespace Client
                 lbPORT.Text = currPort;
                 MessageBox.Show("Server Full!");
                 tcpclnt.Close();
+                lasttime = DateTime.Now;
+                Thread t2 = new Thread(SetPortA);
+                t2.IsBackground = true;
+                t2.Start();
                 return;
             }
             int j = Data.IndexOf(":");
@@ -182,14 +186,13 @@ namespace Client
 
                                 tcpclnt = new TcpClient();
                                 byte[] byteSend = ASCIIEncoding.ASCII.GetBytes("BYE");
-                                if (currIp == "" && currPort == "")
+                                if (currIp != "" && currPort != "")
                                 {
-                                    return;
+                                    tcpclnt.Connect(currIp, int.Parse(currPort));
+                                    stm = tcpclnt.GetStream();
+                                    stm.Write(byteSend, 0, byteSend.Length);
+                                    tcpclnt.Close();
                                 }
-                                tcpclnt.Connect(currIp, int.Parse(currPort));
-                                stm = tcpclnt.GetStream();
-                                stm.Write(byteSend, 0, byteSend.Length);
-                                tcpclnt.Close();
                                 MessageBox.Show(string.Format("Reconnect to {0}:{1}", servIp, servPort));
                                 currIp = servIp;
                                 currPort = servPort;
