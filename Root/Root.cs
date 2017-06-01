@@ -16,7 +16,7 @@ namespace LTM_Proj
         public static int portForServer, portForClient;
         public static TcpListener tcpForServer, tcpForClient;
         public static Server[] ListServers;
-
+        private static double TIMEOUT=5;
         private static Object lock1 = new Object();
         public Root(int n = 100)
         {
@@ -80,7 +80,7 @@ namespace LTM_Proj
                     {
                         DateTime currentTime = DateTime.Now;
                         double lastUpdate = ((TimeSpan)(currentTime - checkServer.lastConnect)).TotalSeconds;
-                        if (lastUpdate > 30)
+                        if (lastUpdate > TIMEOUT)
                         {
                             ListServers[i].status = "-1";
                             Helper.log(string.Format("Timeout: {0}:{1} ({2}s).", checkServer.Ip, checkServer.Port, lastUpdate));
