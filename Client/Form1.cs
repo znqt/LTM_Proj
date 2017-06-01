@@ -40,12 +40,12 @@ namespace Client
                 string nb;
                 int p = str.IndexOf(";");
                 na = str.Substring(0, p);
-                nb=str.Substring(p+1,str.Length-p-1);
+                nb = str.Substring(p + 1, str.Length - p - 1);
                 tcpclnt = new TcpClient();
 
                 if (currIp != "" && currPort != "")
                 {
-                   
+
                     tcpclnt.Connect(currIp, int.Parse(currPort));
                 }
                 else
@@ -84,16 +84,16 @@ namespace Client
                 b.Join();
                 if (currIp != "" && currPort != "")
                 {
-                    ReqAndResp(tbNuma.Text+";"+tbNumb.Text);
+                    ReqAndResp(tbNuma.Text + ";" + tbNumb.Text);
                 }
             }
         }
         private void btnConnectServer_Click(object sender, EventArgs e)
         {
-           
+
             Thread rr = new Thread(ReqAndResp);
             rr.Start(tbNuma.Text + ";" + tbNumb.Text);
-            
+
         }
         private void Form1_Closed(object sender, System.EventArgs e)
         {
@@ -111,7 +111,8 @@ namespace Client
                 tcpclnt.Close();
             }
             catch (Exception ex)
-            { }
+            { return;
+            }
         }
         private void ConnectRoot()
         {
@@ -157,7 +158,7 @@ namespace Client
                 lbIP.Text = currIp;
                 lbPORT.Text = currPort;
             }
-            if (servIp == null && servPort==null)
+            if (servIp == null && servPort == null)
             {
                 servIp = currIp;
                 servPort = currPort;
