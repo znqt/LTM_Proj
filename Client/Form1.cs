@@ -59,6 +59,12 @@ namespace Client
             byteReceive = new byte[100];
             int k = stm.Read(byteReceive, 0, 100);
             string Data = System.Text.Encoding.UTF8.GetString(byteReceive);
+            if (Data.Substring(0,4).Equals("FULL"))
+            {
+                MessageBox.Show("Server Full!");
+                tcpclnt.Close();
+                return;
+            }
             int j = Data.IndexOf(":");
             servIp = Data.Substring(0, j);
             servPort = Data.Substring(j + 1, k - 1 - j);
