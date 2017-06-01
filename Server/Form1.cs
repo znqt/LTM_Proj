@@ -158,12 +158,11 @@ namespace Server
                 //recv data
                 string Data = "";
                 Data = System.Text.Encoding.UTF8.GetString(b);
-                if (Data.Substring(0, 3).Equals("BYE"))
+                if (Data.Substring(0, k) == "c;c")
                 {
-                    status = "0";
+                    status = "1";
                     return;
                 }
-                status = "1";
                 int j = Data.IndexOf(";");
                 int num1 = int.Parse(Data.Substring(0, j));
                 int num2 = int.Parse(Data.Substring(j + 1, k - j - 1));
@@ -175,11 +174,13 @@ namespace Server
                 socket[index].Send(asen.GetBytes(str));
 
                 socket[index].Close();
+                status = "0";
             }
             catch
             {
                 return;
             }
+
         }
         
     }

@@ -14,11 +14,3 @@ C:\Users\OS\Desktop\New folder (3)\LTM_Proj-master\Server\obj\Debug\Server.cspro
 C:\Users\OS\Desktop\New folder (3)\LTM_Proj-master\Server\obj\Debug\Server.Form1.resources
 C:\Users\OS\Desktop\New folder (3)\LTM_Proj-master\Server\obj\Debug\Server.Properties.Resources.resources
 C:\Users\OS\Desktop\New folder (3)\LTM_Proj-master\Server\obj\Debug\Server.csproj.GenerateResource.Cache
-E:\Project\LTM\Server\obj\Debug\Server.csprojResolveAssemblyReference.cache
-E:\Project\LTM\Server\obj\Debug\Server.Form1.resources
-E:\Project\LTM\Server\obj\Debug\Server.Properties.Resources.resources
-E:\Project\LTM\Server\obj\Debug\Server.csproj.GenerateResource.Cache
-E:\Project\LTM\Server\obj\Debug\Server.exe
-E:\Project\LTM\Server\obj\Debug\Server.pdb
-E:\Project\LTM\Server\bin\Debug\Server.exe
-E:\Project\LTM\Server\bin\Debug\Server.pdb
