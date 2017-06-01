@@ -15,8 +15,6 @@ namespace LTM_Proj
         public static IPAddress ipad;
         public static int portForServer, portForClient;
         public static TcpListener tcpForServer, tcpForClient;
-        public static int count = 0;
-        public static int count2 = 0;
         public static Server[] ListServers;
 
         private static Object lock1 = new Object();
@@ -240,7 +238,7 @@ namespace LTM_Proj
             clientSocket.Receive(recv);
             if (recv != null)
             {
-                string response = "";
+                string response = "FULL";
                 lock (lock1)
                 {
                     checkTimeout();
