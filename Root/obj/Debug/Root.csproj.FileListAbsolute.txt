@@ -1,0 +1,7 @@
+C:\Users\OS\Desktop\New folder (4)\LTM_Proj-master\Root\bin\Debug\LTM_Proj.exe
+C:\Users\OS\Desktop\New folder (4)\LTM_Proj-master\Root\bin\Debug\LTM_Proj.pdb
+C:\Users\OS\Desktop\New folder (4)\LTM_Proj-master\Root\obj\Debug\LTM_Proj.Form1.resources
+C:\Users\OS\Desktop\New folder (4)\LTM_Proj-master\Root\obj\Debug\LTM_Proj.Properties.Resources.resources
+C:\Users\OS\Desktop\New folder (4)\LTM_Proj-master\Root\obj\Debug\Root.csproj.GenerateResource.Cache
+C:\Users\OS\Desktop\New folder (4)\LTM_Proj-master\Root\obj\Debug\LTM_Proj.exe
+C:\Users\OS\Desktop\New folder (4)\LTM_Proj-master\Root\obj\Debug\LTM_Proj.pdb

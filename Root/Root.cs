@@ -16,7 +16,7 @@ namespace LTM_Proj
         public static int portForServer, portForClient;
         public static TcpListener tcpForServer, tcpForClient;
         public static Server[] ListServers;
-        private static double TIMEOUT=5;
+        private static double TIMEOUT=10;
         private static Object lock1 = new Object();
         public Root(int n = 100)
         {

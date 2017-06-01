@@ -23,7 +23,7 @@ namespace Server
         public static int count = 0;
         public static Socket[] socket;
         public static string status;
-        public static double TIMEOUT=2;
+        public static double TIMEOUT=8;
         public static DateTime LastTime=DateTime.Now;
         public Form1()
         {
@@ -162,11 +162,13 @@ namespace Server
                 if (Data.Substring(0,k) == "BYE")
                 {
                     status = "0";
+                    socket[index].Close();
                     return;
                 }
                 if (Data.Substring(0, k) == "c;c")
                 {
                     status = "1";
+                    socket[index].Close();
                     return;
                 }
                 int j = Data.IndexOf(";");

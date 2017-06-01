@@ -34,7 +34,7 @@ namespace Client
         {
             try
             {
-                btnConnectServer.Enabled = false;
+                
                 string str = (string)obj;
                 string na;
                 string nb;
@@ -87,6 +87,7 @@ namespace Client
         }
         private void btnConnectServer_Click(object sender, EventArgs e)
         {
+            btnConnectServer.Enabled = false;
             Thread rr = new Thread(ReqAndResp);
             rr.Start(tbNuma.Text + ";" + tbNumb.Text);
             
@@ -107,6 +108,7 @@ namespace Client
         private void ConnectRoot()
         {
             btnConnectRoot.Enabled = false;
+            btnConnectServer.Enabled = true;
             TcpClient tcpclnt = new TcpClient();
             Stream stm;
             byte[] byteSend;
@@ -192,6 +194,9 @@ namespace Client
             try
             {
                 TcpClient tcpc = new TcpClient(ip, int.Parse(port));
+                byte[] byteSend = ASCIIEncoding.ASCII.GetBytes("c;c");
+                Stream ping = tcpc.GetStream();
+                ping.Write(byteSend, 0, byteSend.Length);
                 tcpc.Close();
                 return true;
             }
