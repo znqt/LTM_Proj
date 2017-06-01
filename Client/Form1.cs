@@ -34,6 +34,7 @@ namespace Client
         {
             try
             {
+                btnConnectServer.Enabled = false;
                 string str = (string)obj;
                 string na;
                 string nb;
@@ -69,6 +70,7 @@ namespace Client
 
 
                 tcpclnt.Close();
+                btnConnectServer.Enabled = true;
             }
             catch
             {
@@ -91,24 +93,20 @@ namespace Client
         }
         private void Form1_Closed(object sender, System.EventArgs e)
         {
-            try
+            tcpclnt = new TcpClient();
+            byte[] byteSend = ASCIIEncoding.ASCII.GetBytes("BYE");
+            if (currIp == "" && currPort == "")
             {
-                tcpclnt = new TcpClient();
-                byte[] byteSend = ASCIIEncoding.ASCII.GetBytes("BYE");
-                if (currIp == "" && currPort == "")
-                {
-                    return;
-                }
-                tcpclnt.Connect(currIp, int.Parse(currPort));
-                stm = tcpclnt.GetStream();
-                stm.Write(byteSend, 0, byteSend.Length);
-                tcpclnt.Close();
+                return;
             }
-            catch (Exception ex)
-            { }
+            tcpclnt.Connect(currIp, int.Parse(currPort));
+            stm = tcpclnt.GetStream();
+            stm.Write(byteSend, 0, byteSend.Length);
+            tcpclnt.Close();
         }
         private void ConnectRoot()
         {
+            btnConnectRoot.Enabled = false;
             TcpClient tcpclnt = new TcpClient();
             Stream stm;
             byte[] byteSend;
