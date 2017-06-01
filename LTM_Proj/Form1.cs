@@ -13,7 +13,6 @@ using System.Threading;
 
 namespace LTM_Proj
 {
-    //a
     public partial class Form1 : Form
     {
         Root ROOT = new Root();
