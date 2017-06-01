@@ -22,7 +22,7 @@ namespace Server
         public static TcpListener server;
         public static int count = 0;
         public static Socket[] socket;
-        public string status;
+        public static string status;
         public static double TIMEOUT=30;
         public static DateTime LastTime=DateTime.Now;
         public Form1()
@@ -89,25 +89,27 @@ namespace Server
 
         private static void SendStatus()
         {
-            TcpClient tcpclnt = new TcpClient();
-            Stream stm;
-            byte[] byteSend;
-            byte[] byteReceive;
-            tcpclnt.Connect("127.0.0.1", 12000);
-            stm = tcpclnt.GetStream();
-            ASCIIEncoding asen = new ASCIIEncoding();
-            string status;
-            if (count > 0)
+            if (servPort != "")
             {
-                status = "1";
+                TcpClient tcpclnt = new TcpClient();
+                Stream stm;
+                byte[] byteSend;
+                byte[] byteReceive;
+                tcpclnt.Connect("127.0.0.1", 12000);
+                stm = tcpclnt.GetStream();
+                ASCIIEncoding asen = new ASCIIEncoding();
+                //if (count > 0)
+                //{
+                //    status = "1";
+                //}
+                //else
+                //{
+                //    status = "0";
+                //}
+                byteSend = asen.GetBytes(servIp + ":" + servPort + ";" + status);
+                stm.Write(byteSend, 0, byteSend.Length);
+                tcpclnt.Close();
             }
-            else
-            {
-                status = "0";
-            }
-            byteSend = asen.GetBytes(servIp + ":" + servPort + ";" + status);
-            stm.Write(byteSend, 0, byteSend.Length);
-            tcpclnt.Close();
             
         }
 
@@ -116,6 +118,8 @@ namespace Server
             try
             {
                 server.Stop();
+                status = "0";
+                servPort = "";
             }
             catch
             {
@@ -159,8 +163,5 @@ namespace Server
           
             socket[index].Close();
         }
-
-       
-
     }
 }
