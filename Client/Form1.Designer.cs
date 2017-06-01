@@ -45,9 +45,9 @@
             // 
             // btnConnectServer
             // 
-            this.btnConnectServer.Location = new System.Drawing.Point(384, 80);
+            this.btnConnectServer.Location = new System.Drawing.Point(249, 86);
             this.btnConnectServer.Name = "btnConnectServer";
-            this.btnConnectServer.Size = new System.Drawing.Size(160, 81);
+            this.btnConnectServer.Size = new System.Drawing.Size(125, 54);
             this.btnConnectServer.TabIndex = 0;
             this.btnConnectServer.Text = "SEND REQUEST TO SERVER";
             this.btnConnectServer.UseVisualStyleBackColor = true;
@@ -73,7 +73,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(189, 13);
+            this.label3.Location = new System.Drawing.Point(170, 13);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(87, 13);
             this.label3.TabIndex = 1;
@@ -82,16 +82,16 @@
             // lbPORT
             // 
             this.lbPORT.AutoSize = true;
-            this.lbPORT.Location = new System.Drawing.Point(282, 13);
+            this.lbPORT.Location = new System.Drawing.Point(263, 13);
             this.lbPORT.Name = "lbPORT";
             this.lbPORT.Size = new System.Drawing.Size(0, 13);
             this.lbPORT.TabIndex = 2;
             // 
             // btnConnectRoot
             // 
-            this.btnConnectRoot.Location = new System.Drawing.Point(384, 12);
+            this.btnConnectRoot.Location = new System.Drawing.Point(249, 40);
             this.btnConnectRoot.Name = "btnConnectRoot";
-            this.btnConnectRoot.Size = new System.Drawing.Size(160, 62);
+            this.btnConnectRoot.Size = new System.Drawing.Size(125, 40);
             this.btnConnectRoot.TabIndex = 0;
             this.btnConnectRoot.Text = "CONNECT TO ROOT";
             this.btnConnectRoot.UseVisualStyleBackColor = true;
@@ -100,7 +100,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(66, 57);
+            this.label2.Location = new System.Drawing.Point(13, 43);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(56, 13);
             this.label2.TabIndex = 3;
@@ -108,22 +108,22 @@
             // 
             // tbNuma
             // 
-            this.tbNuma.Location = new System.Drawing.Point(154, 54);
+            this.tbNuma.Location = new System.Drawing.Point(101, 40);
             this.tbNuma.Name = "tbNuma";
-            this.tbNuma.Size = new System.Drawing.Size(140, 20);
+            this.tbNuma.Size = new System.Drawing.Size(116, 20);
             this.tbNuma.TabIndex = 4;
             // 
             // tbNumb
             // 
-            this.tbNumb.Location = new System.Drawing.Point(154, 100);
+            this.tbNumb.Location = new System.Drawing.Point(101, 86);
             this.tbNumb.Name = "tbNumb";
-            this.tbNumb.Size = new System.Drawing.Size(140, 20);
+            this.tbNumb.Size = new System.Drawing.Size(116, 20);
             this.tbNumb.TabIndex = 4;
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(281, 80);
+            this.label5.Location = new System.Drawing.Point(204, 63);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(13, 13);
             this.label5.TabIndex = 3;
@@ -132,7 +132,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(66, 103);
+            this.label6.Location = new System.Drawing.Point(13, 89);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(56, 13);
             this.label6.TabIndex = 3;
@@ -141,7 +141,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(66, 137);
+            this.label4.Location = new System.Drawing.Point(13, 123);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(40, 13);
             this.label4.TabIndex = 3;
@@ -149,16 +149,16 @@
             // 
             // tbResult
             // 
-            this.tbResult.Location = new System.Drawing.Point(154, 134);
+            this.tbResult.Location = new System.Drawing.Point(101, 120);
             this.tbResult.Name = "tbResult";
-            this.tbResult.Size = new System.Drawing.Size(140, 20);
+            this.tbResult.Size = new System.Drawing.Size(116, 20);
             this.tbResult.TabIndex = 4;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(556, 173);
+            this.ClientSize = new System.Drawing.Size(388, 150);
             this.Controls.Add(this.tbResult);
             this.Controls.Add(this.tbNumb);
             this.Controls.Add(this.label4);

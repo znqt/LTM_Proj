@@ -157,7 +157,7 @@ namespace Server
             string Data = System.Text.Encoding.UTF8.GetString(b);
             int j=Data.IndexOf(";");
             int num1 = int.Parse(Data.Substring(0, j));
-            int num2 = int.Parse(Data.Substring(j + 1, Data.Length));
+            int num2 = int.Parse(Data.Substring(j + 1, Data.Length-j-1));
             int res = num1 + num2;
             //respond
             string str = res.ToString();

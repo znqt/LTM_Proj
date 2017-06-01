@@ -21,24 +21,31 @@ namespace Client
 
         private void btnConnectServer_Click(object sender, EventArgs e)
         {
-            TcpClient tcpclnt = new TcpClient();
-            Stream stm;
-            byte[] byteSend;
-            byte[] byteReceive;
+            try
+            {
+                TcpClient tcpclnt = new TcpClient();
+                Stream stm;
+                byte[] byteSend;
+                byte[] byteReceive;
 
-            tcpclnt.Connect(servIp, int.Parse(servPort));
+                tcpclnt.Connect(servIp, int.Parse(servPort));
 
-            stm = tcpclnt.GetStream();
-            ASCIIEncoding asen = new ASCIIEncoding();
-            string send = tbNuma.Text + ";" + tbNumb.Text;
-            byteSend = asen.GetBytes(send);
-            stm.Write(byteSend, 0, byteSend.Length);
+                stm = tcpclnt.GetStream();
+                ASCIIEncoding asen = new ASCIIEncoding();
+                string send = tbNuma.Text + ";" + tbNumb.Text;
+                byteSend = asen.GetBytes(send);
+                stm.Write(byteSend, 0, byteSend.Length);
 
-            byteReceive = new byte[100];
-            int k = stm.Read(byteReceive, 0, 100);
-            string recv = System.Text.Encoding.UTF8.GetString(byteReceive);
-            tbResult.Text = recv;
-            tcpclnt.Close();
+                byteReceive = new byte[100];
+                int k = stm.Read(byteReceive, 0, 100);
+                string recv = System.Text.Encoding.UTF8.GetString(byteReceive);
+                tbResult.Text = recv;
+                tcpclnt.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
         }
 
         private void btnConnectRoot_Click(object sender, EventArgs e)
