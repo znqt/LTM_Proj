@@ -158,7 +158,11 @@ namespace Server
                 //recv data
                 string Data = "";
                 Data = System.Text.Encoding.UTF8.GetString(b);
-
+                if (Data.Substring(0, k) == "c;c")
+                {
+                    status = "1";
+                    return;
+                }
                 int j = Data.IndexOf(";");
                 int num1 = int.Parse(Data.Substring(0, j));
                 int num2 = int.Parse(Data.Substring(j + 1, k - j - 1));
@@ -176,6 +180,7 @@ namespace Server
             {
                 return;
             }
+
         }
         
     }
