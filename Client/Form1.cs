@@ -52,6 +52,19 @@ namespace Client
             tbResult.Text = recv;
             tcpclnt.Close();
         }
+        private void Form1_Closed(object sender, System.EventArgs e)
+        {
+            tcpclnt = new TcpClient();
+            byte[] byteSend = ASCIIEncoding.ASCII.GetBytes("BYE");
+            if (currIp == "" && currPort == "")
+            {
+                return;
+            }
+            tcpclnt.Connect(currIp, int.Parse(currPort));
+            stm = tcpclnt.GetStream();
+            stm.Write(byteSend, 0, byteSend.Length);
+            tcpclnt.Close();
+        }
         private void btnConnectServer_Click(object sender, EventArgs e)
         {
             try
@@ -145,6 +158,11 @@ namespace Client
                     }
                 }
             }
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
         }
 
         private bool PingHost(string ip, string port)

@@ -14,3 +14,11 @@ C:\Users\OS\Desktop\New folder (3)\LTM_Proj-master\Client\obj\Debug\Client.cspro
 C:\Users\OS\Desktop\New folder (3)\LTM_Proj-master\Client\obj\Debug\Client.Form1.resources
 C:\Users\OS\Desktop\New folder (3)\LTM_Proj-master\Client\obj\Debug\Client.Properties.Resources.resources
 C:\Users\OS\Desktop\New folder (3)\LTM_Proj-master\Client\obj\Debug\Client.csproj.GenerateResource.Cache
+E:\Project\LTM\Client\bin\Debug\Client.exe
+E:\Project\LTM\Client\bin\Debug\Client.pdb
+E:\Project\LTM\Client\obj\Debug\Client.csprojResolveAssemblyReference.cache
+E:\Project\LTM\Client\obj\Debug\Client.Form1.resources
+E:\Project\LTM\Client\obj\Debug\Client.Properties.Resources.resources
+E:\Project\LTM\Client\obj\Debug\Client.csproj.GenerateResource.Cache
+E:\Project\LTM\Client\obj\Debug\Client.exe
+E:\Project\LTM\Client\obj\Debug\Client.pdb
