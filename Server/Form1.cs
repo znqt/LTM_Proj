@@ -163,6 +163,7 @@ namespace Server
                     status = "0";
                     return;
                 }
+                status = "1";
                 int j = Data.IndexOf(";");
                 int num1 = int.Parse(Data.Substring(0, j));
                 int num2 = int.Parse(Data.Substring(j + 1, k - j - 1));
@@ -174,7 +175,6 @@ namespace Server
                 socket[index].Send(asen.GetBytes(str));
 
                 socket[index].Close();
-                status = "1";
             }
             catch
             {
