@@ -43,6 +43,7 @@ namespace Server
                 {
                     return;
                 }
+                status = "0";
                 servPort = tbPort.Text;
                 ipAd = IPAddress.Parse(servIp);
                 Port = int.Parse(tbPort.Text);
@@ -128,7 +129,8 @@ namespace Server
                 {
                     socket[count] = server.AcceptSocket();
                     count++;
-                    lbCountClient.Text = count.ToString();
+                    status = "1";
+                    //lbCountClient.Text = count.ToString();
                     Thread t = new Thread(ServeClient);
                     t.Start(count - 1);
                 }

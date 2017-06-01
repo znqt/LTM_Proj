@@ -32,7 +32,6 @@
             this.lbIP = new System.Windows.Forms.Label();
             this.lbPORT = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
             this.lbCountClient = new System.Windows.Forms.Label();
             this.lbRecv = new System.Windows.Forms.Label();
             this.tbPort = new System.Windows.Forms.TextBox();
@@ -73,15 +72,6 @@
             this.label4.Size = new System.Drawing.Size(40, 13);
             this.label4.TabIndex = 5;
             this.label4.Text = "PORT:";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(281, 12);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(63, 13);
-            this.label2.TabIndex = 6;
-            this.label2.Text = "Total Client:";
             // 
             // lbCountClient
             // 
@@ -136,7 +126,6 @@
             this.Controls.Add(this.tbPort);
             this.Controls.Add(this.lbRecv);
             this.Controls.Add(this.lbCountClient);
-            this.Controls.Add(this.label2);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.lbPORT);
             this.Controls.Add(this.lbIP);
@@ -155,7 +144,6 @@
         private System.Windows.Forms.Label lbIP;
         private System.Windows.Forms.Label lbPORT;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label lbCountClient;
         private System.Windows.Forms.Label lbRecv;
         private System.Windows.Forms.TextBox tbPort;
