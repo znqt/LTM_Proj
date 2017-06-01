@@ -154,10 +154,12 @@ namespace Server
             byte[] b = new byte[100];
             int k = socket[index].Receive(b);
             //recv data
-            string Data = System.Text.Encoding.UTF8.GetString(b);
+            string Data = "";
+            Data = System.Text.Encoding.UTF8.GetString(b);
+
             int j=Data.IndexOf(";");
             int num1 = int.Parse(Data.Substring(0, j));
-            int num2 = int.Parse(Data.Substring(j + 1, Data.Length-j-1));
+            int num2 = int.Parse(Data.Substring(j + 1, k-j-1));
             int res = num1 + num2;
             //respond
             string str = res.ToString();
