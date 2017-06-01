@@ -19,7 +19,7 @@ namespace Client
             InitializeComponent();
             CheckForIllegalCrossThreadCalls = false;
         }
-        private double TIMEOUT = 30;
+        private double TIMEOUT = 1;
         public static string servIp, servPort;
         public static string currIp, currPort;
         private Object lock1 = new Object();
@@ -34,7 +34,7 @@ namespace Client
         {
             try
             {
-                
+                btnConnectServer.Enabled = false;
                 string str = (string)obj;
                 string na;
                 string nb;
@@ -45,10 +45,12 @@ namespace Client
 
                 if (currIp != "" && currPort != "")
                 {
+                   
                     tcpclnt.Connect(currIp, int.Parse(currPort));
                 }
                 else
                 {
+                    btnConnectServer.Enabled = true;
                     return;
                 }
                 byte[] byteSend;
@@ -61,6 +63,7 @@ namespace Client
                 stm.Write(byteSend, 0, byteSend.Length);
                 if (na == "c" & nb == "c")
                 {
+                    btnConnectServer.Enabled = true;
                     return;
                 }
                 byteReceive = new byte[100];
@@ -87,7 +90,7 @@ namespace Client
         }
         private void btnConnectServer_Click(object sender, EventArgs e)
         {
-            btnConnectServer.Enabled = false;
+           
             Thread rr = new Thread(ReqAndResp);
             rr.Start(tbNuma.Text + ";" + tbNumb.Text);
             
@@ -127,6 +130,7 @@ namespace Client
             string Data = System.Text.Encoding.UTF8.GetString(byteReceive);
             if (Data.Substring(0, 4).Equals("FULL"))
             {
+                btnConnectRoot.Enabled = true;
                 currIp = "";
                 currPort = "";
                 lbIP.Text = currIp;
@@ -171,11 +175,17 @@ namespace Client
                             if (PingHost(servIp, servPort))
                             {
 
-                                MessageBox.Show(string.Format("Reconnect to {0}:{1}", servIp, servPort));
+                                tcpclnt = new TcpClient();
                                 byte[] byteSend = ASCIIEncoding.ASCII.GetBytes("BYE");
+                                if (currIp == "" && currPort == "")
+                                {
+                                    return;
+                                }
+                                tcpclnt.Connect(currIp, int.Parse(currPort));
+                                stm = tcpclnt.GetStream();
                                 stm.Write(byteSend, 0, byteSend.Length);
                                 tcpclnt.Close();
-
+                                MessageBox.Show(string.Format("Reconnect to {0}:{1}", servIp, servPort));
                                 currIp = servIp;
                                 currPort = servPort;
                                 lbIP.Text = currIp;

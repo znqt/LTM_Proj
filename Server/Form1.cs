@@ -168,8 +168,6 @@ namespace Server
                 if (Data.Substring(0, k) == "c;c")
                 {
                     status = "1";
-                    socket[index].Close();
-                    return;
                 }
                 int j = Data.IndexOf(";");
                 int num1 = int.Parse(Data.Substring(0, j));
@@ -182,10 +180,10 @@ namespace Server
                 socket[index].Send(asen.GetBytes(str));
 
                 socket[index].Close();
+                status = "1";
             }
             catch
             {
-                status = "0";
                 return;
             }
         }
