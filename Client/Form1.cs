@@ -170,6 +170,10 @@ namespace Client
                             {
 
                                 MessageBox.Show(string.Format("Reconnect to {0}:{1}", servIp, servPort));
+                                byte[] byteSend = ASCIIEncoding.ASCII.GetBytes("BYE");
+                                stm.Write(byteSend, 0, byteSend.Length);
+                                tcpclnt.Close();
+
                                 currIp = servIp;
                                 currPort = servPort;
                                 lbIP.Text = currIp;
