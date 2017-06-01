@@ -5,3 +5,4 @@ C:\Users\OS\Desktop\New folder (2)\LTM_Proj-master\Server\obj\Debug\Server.Prope
 C:\Users\OS\Desktop\New folder (2)\LTM_Proj-master\Server\obj\Debug\Server.csproj.GenerateResource.Cache
 C:\Users\OS\Desktop\New folder (2)\LTM_Proj-master\Server\obj\Debug\Server.exe
 C:\Users\OS\Desktop\New folder (2)\LTM_Proj-master\Server\obj\Debug\Server.pdb
+C:\Users\OS\Desktop\New folder (2)\LTM_Proj-master\Server\obj\Debug\Server.csprojResolveAssemblyReference.cache
