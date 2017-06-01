@@ -59,7 +59,10 @@ namespace Client
                 b.IsBackground = true;
                 b.Start();
                 b.Join();
-                ReqAndResp();
+                if (currIp != "" && currPort != "")
+                {
+                    ReqAndResp();
+                }
             }
         }
 
@@ -83,6 +86,8 @@ namespace Client
             string Data = System.Text.Encoding.UTF8.GetString(byteReceive);
             if (Data.Substring(0, 4).Equals("FULL"))
             {
+                currIp = "";
+                currPort = "";
                 MessageBox.Show("Server Full!");
                 tcpclnt.Close();
                 return;
