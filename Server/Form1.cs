@@ -16,24 +16,67 @@ namespace Server
     public partial class Form1 : Form
     {
         public static IPAddress ipAd;
+        public static int Port;
         public static string servIp = "127.0.0.1";
         public static string servPort;
         public static TcpListener server;
         public static int count = 0;
         public static Socket[] socket;
+        public string status;
+        public static DateTime LastTime=DateTime.Now;
         public Form1()
         {
             InitializeComponent();
             CheckForIllegalCrossThreadCalls = false;
-            ipAd = IPAddress.Parse(servIp);
-            server = new TcpListener(ipAd, 0);
-            server.Start();
-            servPort = ((IPEndPoint)server.LocalEndpoint).Port.ToString();
-            lbIP.Text = servIp;
-            lbPORT.Text = servPort;
+            
+        }
+        private void btnStartServer_Click(object sender, EventArgs e)
+        {
+            StartServer();
+        }
+        public void StartServer()
+        {
+            try
+            {
+                if (tbPort.Text == "")
+                {
+                    return;
+                }
+                servPort = tbPort.Text;
+                ipAd = IPAddress.Parse(servIp);
+                Port = int.Parse(tbPort.Text);
+                server = new TcpListener(ipAd, Port);
+                //server.Start();
+                SendStatus();
+                LastTime = DateTime.Now;
+                
+                lbIP.Text = servIp;
+                //lbPORT.Text = servPort;
+                Thread time = new Thread(CheckTime);
+                time.Start();
+                
+            }
+            catch (Exception err)
+            {
+                MessageBox.Show(err.StackTrace);
+            }
         }
 
-        private void btnSendStatus_Click(object sender, EventArgs e)
+        public static void CheckTime()
+        {
+            while (true)
+            {
+                DateTime currentTime = DateTime.Now;
+                double lastUpdate = ((TimeSpan)(currentTime - LastTime)).TotalSeconds;
+                if (lastUpdate > 30)
+                {
+                    LastTime = DateTime.Now;
+                    SendStatus();
+                }
+            }
+        }
+
+        private static void SendStatus()
         {
             TcpClient tcpclnt = new TcpClient();
             Stream stm;
@@ -51,9 +94,10 @@ namespace Server
             {
                 status = "0";
             }
-            byteSend = asen.GetBytes(servIp+":"+servPort+";"+ status);
+            byteSend = asen.GetBytes(servIp + ":" + servPort + ";" + status);
             stm.Write(byteSend, 0, byteSend.Length);
             tcpclnt.Close();
+            
         }
 
         private void btnStart_Click(object sender, EventArgs e)
@@ -91,5 +135,8 @@ namespace Server
           
             socket[index].Close();
         }
+
+       
+
     }
 }
