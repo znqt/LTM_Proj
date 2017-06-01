@@ -45,6 +45,7 @@ namespace LTM_Proj
         }
         void UpdateListView()
         {
+            Helper.log("Run update listView.");
             int j = 1;
             lvServers.Items.Clear();
             foreach (Server i in ROOT.GetListServers())
@@ -63,6 +64,11 @@ namespace LTM_Proj
         private void btnDiscnt_Click(object sender, EventArgs e)
         {
             ROOT.Disconnect();
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

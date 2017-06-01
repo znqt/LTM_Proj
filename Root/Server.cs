@@ -10,7 +10,7 @@ namespace LTM_Proj
         public string Ip = "";
         public string Port = "";
         public string status = "";
-        public long lastConnect = 0;
+        public DateTime lastConnect = DateTime.Now;
         public Server(string _ip, string _port)
         {
             Ip = _ip;

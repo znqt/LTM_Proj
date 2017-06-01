@@ -13,16 +13,13 @@ namespace LTM_Proj
     {
         public static int NumbersOfServers;
         public static IPAddress ipad;
-        public static int port, portClient;
-        public static TcpListener tcpRoot, tcpForClient;
+        public static int portForServer, portForClient;
+        public static TcpListener tcpForServer, tcpForClient;
         public static int count = 0;
         public static int count2 = 0;
-        public static Socket[] socket;
-        public static Socket[] clientSock;
         public static Server[] ListServers;
 
         private static Object lock1 = new Object();
-        private static Object lock2 = new Object();
         public Root(int n = 100)
         {
             NumbersOfServers = n;
@@ -32,18 +29,18 @@ namespace LTM_Proj
             try
             {
                 //Init
-                socket = new Socket[NumbersOfServers];
-                clientSock = new Socket[100];
                 ListServers = new Server[NumbersOfServers];
                 ipad = IPAddress.Parse("127.0.0.1");
-                port = 12000;
-                portClient = 13000;
-                tcpRoot = new TcpListener(ipad, port);
-                tcpForClient = new TcpListener(ipad, portClient);
+                portForServer = 12000;
+                portForClient = 13000;
+                tcpForServer = new TcpListener(ipad, portForServer);
+                tcpForClient = new TcpListener(ipad, portForClient);
                 //Listen
-                tcpRoot.Start();
+                tcpForServer.Start();
+                Helper.log("tcpForServer started at port " + portForServer.ToString() + ".");
                 tcpForClient.Start();
-                //
+                Helper.log("tcpForClient started at port " + portForClient.ToString() + ".");
+
                 Thread threadServer = new Thread(HandleServer);
                 Thread threadClient = new Thread(HandleClient);
                 threadServer.Start();
@@ -59,7 +56,7 @@ namespace LTM_Proj
         {
             try
             {
-                tcpRoot.Stop();
+                tcpForServer.Stop();
                 tcpForClient.Stop();
             }
             catch (Exception err)
@@ -67,51 +64,66 @@ namespace LTM_Proj
                 MessageBox.Show(err.StackTrace);
             }
         }
+
         public Server[] GetListServers()
         {
             return ListServers;
         }
+
+        public static void checkTimeout()
+        {
+            lock (lock1)
+            {
+                for (int i = 0; i < NumbersOfServers; i++)
+                {
+                    Server checkServer = ListServers[i];
+                    if (checkServer != null)
+                    {
+                        DateTime currentTime = DateTime.Now;
+                        double lastUpdate = ((TimeSpan)(currentTime - checkServer.lastConnect)).TotalSeconds;
+                        if (lastUpdate > 30)
+                        {
+                            ListServers[i].status = "-1";
+                            Helper.log(string.Format("Timeout: {0}:{1} ({2}s).", checkServer.Ip, checkServer.Port, lastUpdate));
+                        }
+                    }
+                }
+            }
+        }
+
         static void HandleServer()
         {
-
+            Helper.log("Thread: HandleServer started.");
             while (true)
             {
                 try
                 {
-                    Socket newServerSocket = tcpRoot.AcceptSocket();
+                    Socket newServerSocket = tcpForServer.AcceptSocket();
                     Thread t = new Thread(WorkerServer);
                     t.Start(newServerSocket);
                 }
                 catch (Exception err)
                 {
-                    MessageBox.Show(err.StackTrace);
+                    Helper.log(err.StackTrace);
                 }
             }
         }
+
         static void HandleClient()
         {
-            try
+            Helper.log("Thread: HandleClient started.");
+            while (true)
             {
-                while (true)
+                try
                 {
-                    clientSock[count2] = tcpForClient.AcceptSocket();
-                    Form1.flag = 1;
-                    //lock
-                    if (count2 > 100)
-                    {
-                        count2 = 0;
-                    }
-                    else
-                    {
-                        count2++;
-                    }
+                    Socket newClientSocket = tcpForClient.AcceptSocket();
                     Thread t = new Thread(WorkerClient);
-                    t.Start(count2 - 1);
+                    t.Start(newClientSocket);
                 }
-            }
-            catch (Exception err)
-            {
-                MessageBox.Show(err.StackTrace);
+                catch (Exception err)
+                {
+                    Helper.log(err.StackTrace);
+                }
             }
         }
 
@@ -159,7 +171,7 @@ namespace LTM_Proj
         {
             Socket serverSocket = (Socket) obj;
             byte[] recv = new byte[100];
-            int k = serverSocket.Receive(recv);
+            serverSocket.Receive(recv);
             string Data = System.Text.Encoding.UTF8.GetString(recv);
             //split data
             int j = Data.IndexOf(":");
@@ -167,7 +179,7 @@ namespace LTM_Proj
             string servIp = Data.Substring(0, j);
             string servPort = Data.Substring(j + 1, t - 1 - j);
             string Status = Data.Substring(t + 1, 1);
-            Helper.log("Connect: " + servIp + ":" + servPort + ". Status: " + Status);
+            Helper.log("Server connect: " + servIp + ":" + servPort + ". Status: " + Status);
 
             Server tmp = new Server(servIp, servPort);
             int m = IndexOfServ(tmp);
@@ -176,62 +188,73 @@ namespace LTM_Proj
                 int place = FindFreePlace();
                 if (place != -1)
                 {
-                    ListServers[place] = tmp;
-                    ListServers[place].status = Status;
+                    lock (lock1)
+                    {
+                        ListServers[place] = tmp;
+                        ListServers[place].status = Status;
+                        ListServers[place].lastConnect = DateTime.Now;
+                    }
                     Helper.log("Added to slot " + place.ToString());
                 }
             }
             else
             {
-                ListServers[m].status = Status;
+                lock (lock1)
+                {
+                    ListServers[m].status = Status;
+                    ListServers[m].lastConnect = DateTime.Now;
+                }
                 Helper.log("Updated in slot " + m.ToString());
             }
-            Form1.flag = 1;
+            checkTimeout();
         }
 
         private static int FindServerFree()
         {
-            for (int i = 0; i < NumbersOfServers; i++)
+            lock (lock1)
             {
-                if (ListServers[i].status == "0")
+                for (int i = 0; i < NumbersOfServers; i++)
                 {
-                    return i;
+                    if (ListServers[i] == null)
+                    {
+                        continue;
+                    }
+                    if (ListServers[i].status == "0")
+                    {
+                        return i;
+                    }
                 }
+                return -1;
             }
-            return -1;
         }
+
         static void WorkerClient(object obj)
         {
-            int inx = (Int32)obj;
+            Socket clientSocket = (Socket)obj;
+            Helper.log("Client connect:" + ((IPEndPoint)clientSocket.LocalEndPoint).Address + ":" +
+                ((IPEndPoint)clientSocket.LocalEndPoint).Port + ".");
             byte[] recv = new byte[1];
             byte[] send = new byte[20];
-            lock (lock2)
+            clientSocket.Receive(recv);
+            if (recv != null)
             {
-                clientSock[inx].Receive(recv);
-                if (recv != null)
+                string response = "";
+                lock (lock1)
                 {
-                    int f;
-                    Server free;
-                    string str = "";
-                    lock (lock1)
+                    checkTimeout();
+                    int freeServerIndex = FindServerFree();
+                    if (freeServerIndex != -1)
                     {
-                        lock (lock1)
-                        {
-                            f = FindServerFree();
-                        }
-                        if (f != -1)
-                        {
-                            free = ListServers[f];
-                            str = free.Ip + ":" + free.Port;
-                            ListServers[f].status = "1";
-                            Form1.flag = 1;
-                        }
+                        Server freeServer = ListServers[freeServerIndex];
+                        response = freeServer.Ip + ":" + freeServer.Port;
+                        ListServers[freeServerIndex].status = "1";
                     }
-                    ASCIIEncoding asen = new ASCIIEncoding();
-                    clientSock[inx].Send(asen.GetBytes(str));
                 }
-                clientSock[inx].Close();
+                Helper.log("Redirected client to server " + response + ".");
+                Form1.flag = 1;
+                clientSocket.Send(Encoding.ASCII.GetBytes(response));
             }
+            clientSocket.Close();
         }
     }
 }
