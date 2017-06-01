@@ -58,10 +58,12 @@ namespace Server
                 socket = new Socket[100];
                 server.Start();
                 Thread t = new Thread(LoopServer);
+                t.IsBackground = true;
                 t.Start();
 
                 //lbPORT.Text = servPort;
                 Thread time = new Thread(CheckTime);
+                time.IsBackground = true;
                 time.Start();
                 
             }
@@ -132,6 +134,7 @@ namespace Server
                     status = "1";
                     //lbCountClient.Text = count.ToString();
                     Thread t = new Thread(ServeClient);
+                    t.IsBackground = true;
                     t.Start(count - 1);
                 }
                 catch
