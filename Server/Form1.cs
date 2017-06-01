@@ -123,6 +123,7 @@ namespace Server
             }
             catch
             {
+                status = "0";
                 return;
             }
         }
@@ -158,6 +159,11 @@ namespace Server
                 //recv data
                 string Data = "";
                 Data = System.Text.Encoding.UTF8.GetString(b);
+                if (Data.Substring(0,k) == "BYE")
+                {
+                    status = "0";
+                    return;
+                }
                 if (Data.Substring(0, k) == "c;c")
                 {
                     status = "1";
@@ -174,13 +180,12 @@ namespace Server
                 socket[index].Send(asen.GetBytes(str));
 
                 socket[index].Close();
-                status = "0";
             }
             catch
             {
+                status = "0";
                 return;
             }
-
         }
         
     }
