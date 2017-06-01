@@ -23,6 +23,7 @@ namespace Server
         public static int count = 0;
         public static Socket[] socket;
         public string status;
+        public static double TIMEOUT=30;
         public static DateTime LastTime=DateTime.Now;
         public Form1()
         {
@@ -47,10 +48,17 @@ namespace Server
                 Port = int.Parse(tbPort.Text);
                 server = new TcpListener(ipAd, Port);
                 //server.Start();
+
                 SendStatus();
                 LastTime = DateTime.Now;
-                
                 lbIP.Text = servIp;
+
+                lbCountClient.Text = "0";
+                socket = new Socket[100];
+                server.Start();
+                Thread t = new Thread(LoopServer);
+                t.Start();
+
                 //lbPORT.Text = servPort;
                 Thread time = new Thread(CheckTime);
                 time.Start();
@@ -68,7 +76,7 @@ namespace Server
             {
                 DateTime currentTime = DateTime.Now;
                 double lastUpdate = ((TimeSpan)(currentTime - LastTime)).TotalSeconds;
-                if (lastUpdate > 30)
+                if (lastUpdate > TIMEOUT)
                 {
                     LastTime = DateTime.Now;
                     SendStatus();
@@ -100,23 +108,34 @@ namespace Server
             
         }
 
-        private void btnStart_Click(object sender, EventArgs e)
+        private void btnDis_Click(object sender, EventArgs e)
         {
-            lbCountClient.Text = "0";
-            socket = new Socket[100];
-            server.Start();
-            Thread t = new Thread(LoopServer);
-            t.Start();
+            try
+            {
+                server.Stop();
+            }
+            catch
+            {
+                return;
+            }
         }
+
         void LoopServer()
         {
             while (true)
             {
-                socket[count] = server.AcceptSocket();
-                count++;
-                lbCountClient.Text = count.ToString();
-                Thread t = new Thread(ServeClient);
-                t.Start(count - 1);
+                try
+                {
+                    socket[count] = server.AcceptSocket();
+                    count++;
+                    lbCountClient.Text = count.ToString();
+                    Thread t = new Thread(ServeClient);
+                    t.Start(count - 1);
+                }
+                catch
+                {
+                    return;
+                }
             }
         }
         void ServeClient(object obj)
