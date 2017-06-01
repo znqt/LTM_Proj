@@ -26,37 +26,68 @@ namespace Client
         private TcpClient tcpclnt;
         private DateTime lasttime = DateTime.Now;
         Stream stm;
-        private void ReqAndResp(string na,string nb)
+        private void Form1_Load(object sender, EventArgs e)
         {
-            tcpclnt = new TcpClient();
 
-            if (currIp != "" && currPort != "")
+        }
+        private void ReqAndResp(object obj)
+        {
+            try
             {
-                tcpclnt.Connect(currIp, int.Parse(currPort));
+                string str = (string)obj;
+                string na;
+                string nb;
+                int p = str.IndexOf(";");
+                na = str.Substring(0, p);
+                nb=str.Substring(p+1,str.Length-p-1);
+                tcpclnt = new TcpClient();
+
+                if (currIp != "" && currPort != "")
+                {
+                    tcpclnt.Connect(currIp, int.Parse(currPort));
+                }
+                else
+                {
+                    return;
+                }
+                byte[] byteSend;
+                byte[] byteReceive;
+                tcpclnt.ReceiveTimeout = 15000;
+                stm = tcpclnt.GetStream();
+                ASCIIEncoding asen = new ASCIIEncoding();
+                string send = na + ";" + nb;
+                byteSend = asen.GetBytes(send);
+                stm.Write(byteSend, 0, byteSend.Length);
+                if (na == "c" & nb == "c")
+                {
+                    return;
+                }
+                byteReceive = new byte[100];
+                int k = stm.Read(byteReceive, 0, 100);
+                string recv = System.Text.Encoding.UTF8.GetString(byteReceive);
+                tbResult.Text = recv;
+
+
+                tcpclnt.Close();
             }
-            else
+            catch
             {
-                return;
+                MessageBox.Show("Current Server was shutdown.\nConnecting another Server...");
+                Thread b = new Thread(ConnectRoot);
+                b.IsBackground = true;
+                b.Start();
+                b.Join();
+                if (currIp != "" && currPort != "")
+                {
+                    ReqAndResp(tbNuma.Text+";"+tbNumb.Text);
+                }
             }
-            byte[] byteSend;
-            byte[] byteReceive;
-            tcpclnt.ReceiveTimeout = 15000;
-            stm = tcpclnt.GetStream();
-            ASCIIEncoding asen = new ASCIIEncoding();
-            string send = na + ";" + nb;
-            byteSend = asen.GetBytes(send);
-            stm.Write(byteSend, 0, byteSend.Length);
-            if (na == "c" & nb == "c")
-            {
-                return;
-            }
-            byteReceive = new byte[100];
-            int k = stm.Read(byteReceive, 0, 100);
-            string recv = System.Text.Encoding.UTF8.GetString(byteReceive);
-            tbResult.Text = recv;
+        }
+        private void btnConnectServer_Click(object sender, EventArgs e)
+        {
+            Thread rr = new Thread(ReqAndResp);
+            rr.Start(tbNuma.Text + ";" + tbNumb.Text);
             
-            
-            tcpclnt.Close();
         }
         private void Form1_Closed(object sender, System.EventArgs e)
         {
@@ -71,26 +102,6 @@ namespace Client
             stm.Write(byteSend, 0, byteSend.Length);
             tcpclnt.Close();
         }
-        private void btnConnectServer_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                ReqAndResp(tbNuma.Text, tbNumb.Text);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Current Server was shutdown.\nConnecting another Server...");
-                Thread b = new Thread(ConnectRoot);
-                b.IsBackground = true;
-                b.Start();
-                b.Join();
-                if (currIp != "" && currPort != "")
-                {
-                    ReqAndResp(tbNuma.Text, tbNumb.Text);
-                }
-            }
-        }
-
         private void ConnectRoot()
         {
             TcpClient tcpclnt = new TcpClient();
@@ -113,6 +124,8 @@ namespace Client
             {
                 currIp = "";
                 currPort = "";
+                lbIP.Text = currIp;
+                lbPORT.Text = currPort;
                 MessageBox.Show("Server Full!");
                 tcpclnt.Close();
                 return;
@@ -120,7 +133,7 @@ namespace Client
             int j = Data.IndexOf(":");
             currIp = Data.Substring(0, j);
             currPort = Data.Substring(j + 1, k - 1 - j);
-            ReqAndResp("c", "c");
+            ReqAndResp("c;c");
             lock (lock1)
             {
                 lbIP.Text = currIp;
@@ -165,11 +178,6 @@ namespace Client
                     }
                 }
             }
-        }
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-
         }
 
         private bool PingHost(string ip, string port)
