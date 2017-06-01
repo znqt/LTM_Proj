@@ -33,7 +33,6 @@
             this.lbPORT = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.lbCountClient = new System.Windows.Forms.Label();
-            this.lbRecv = new System.Windows.Forms.Label();
             this.tbPort = new System.Windows.Forms.TextBox();
             this.btnStartServer = new System.Windows.Forms.Button();
             this.btnDis = new System.Windows.Forms.Button();
@@ -81,15 +80,6 @@
             this.lbCountClient.Size = new System.Drawing.Size(0, 13);
             this.lbCountClient.TabIndex = 7;
             // 
-            // lbRecv
-            // 
-            this.lbRecv.AutoSize = true;
-            this.lbRecv.Location = new System.Drawing.Point(16, 53);
-            this.lbRecv.Name = "lbRecv";
-            this.lbRecv.Size = new System.Drawing.Size(66, 13);
-            this.lbRecv.TabIndex = 8;
-            this.lbRecv.Text = "Not connect";
-            // 
             // tbPort
             // 
             this.tbPort.Location = new System.Drawing.Point(175, 9);
@@ -99,7 +89,7 @@
             // 
             // btnStartServer
             // 
-            this.btnStartServer.Location = new System.Drawing.Point(19, 89);
+            this.btnStartServer.Location = new System.Drawing.Point(19, 44);
             this.btnStartServer.Name = "btnStartServer";
             this.btnStartServer.Size = new System.Drawing.Size(106, 68);
             this.btnStartServer.TabIndex = 10;
@@ -109,7 +99,7 @@
             // 
             // btnDis
             // 
-            this.btnDis.Location = new System.Drawing.Point(163, 89);
+            this.btnDis.Location = new System.Drawing.Point(163, 44);
             this.btnDis.Name = "btnDis";
             this.btnDis.Size = new System.Drawing.Size(106, 68);
             this.btnDis.TabIndex = 1;
@@ -121,10 +111,9 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(291, 169);
+            this.ClientSize = new System.Drawing.Size(291, 131);
             this.Controls.Add(this.btnStartServer);
             this.Controls.Add(this.tbPort);
-            this.Controls.Add(this.lbRecv);
             this.Controls.Add(this.lbCountClient);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.lbPORT);
@@ -145,7 +134,6 @@
         private System.Windows.Forms.Label lbPORT;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label lbCountClient;
-        private System.Windows.Forms.Label lbRecv;
         private System.Windows.Forms.TextBox tbPort;
         private System.Windows.Forms.Button btnStartServer;
         private System.Windows.Forms.Button btnDis;

@@ -23,7 +23,7 @@ namespace Server
         public static int count = 0;
         public static Socket[] socket;
         public static string status;
-        public static double TIMEOUT=30;
+        public static double TIMEOUT=2;
         public static DateTime LastTime=DateTime.Now;
         public Form1()
         {
