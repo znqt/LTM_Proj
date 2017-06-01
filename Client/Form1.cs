@@ -31,8 +31,14 @@ namespace Client
             tcpclnt = new TcpClient();
             byte[] byteSend;
             byte[] byteReceive;
-
-            tcpclnt.Connect(currIp, int.Parse(currPort));
+            if (currIp != "" && currPort != "")
+            {
+                tcpclnt.Connect(currIp, int.Parse(currPort));
+            }
+            else
+            {
+                return;
+            }
             tcpclnt.ReceiveTimeout = 15000;
             stm = tcpclnt.GetStream();
             ASCIIEncoding asen = new ASCIIEncoding();
