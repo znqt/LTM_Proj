@@ -147,7 +147,7 @@ namespace Server
                 }
             }
         }
-        void ServeClient(object obj)
+        static void ServeClient(object obj)
         {
             try
             {
@@ -170,6 +170,7 @@ namespace Server
                 socket[index].Send(asen.GetBytes(str));
 
                 socket[index].Close();
+                status = "0";
             }
             catch
             {
