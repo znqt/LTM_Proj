@@ -1,5 +1,10 @@
 LTM_Proj/obj/
 LTM_Proj/bin/
+LTM_Proj/.vs/
 Server/obj/
 Server/bin/
-.vs/LTM_Proj/v15/.suo
+Server/.vs/
+Client/obj/
+Client/bin/
+Client/.vs/
+.vs/
