@@ -34,16 +34,22 @@
             this.label3 = new System.Windows.Forms.Label();
             this.lbPORT = new System.Windows.Forms.Label();
             this.btnConnectRoot = new System.Windows.Forms.Button();
-            this.lbRecv = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.tbNuma = new System.Windows.Forms.TextBox();
+            this.tbNumb = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.tbResult = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // btnConnectServer
             // 
             this.btnConnectServer.Location = new System.Drawing.Point(384, 80);
             this.btnConnectServer.Name = "btnConnectServer";
-            this.btnConnectServer.Size = new System.Drawing.Size(160, 62);
+            this.btnConnectServer.Size = new System.Drawing.Size(160, 81);
             this.btnConnectServer.TabIndex = 0;
-            this.btnConnectServer.Text = "CONNECT TO SERVER";
+            this.btnConnectServer.Text = "SEND REQUEST TO SERVER";
             this.btnConnectServer.UseVisualStyleBackColor = true;
             this.btnConnectServer.Click += new System.EventHandler(this.btnConnectServer_Click);
             // 
@@ -91,21 +97,75 @@
             this.btnConnectRoot.UseVisualStyleBackColor = true;
             this.btnConnectRoot.Click += new System.EventHandler(this.btnConnectRoot_Click);
             // 
-            // lbRecv
+            // label2
             // 
-            this.lbRecv.AutoSize = true;
-            this.lbRecv.Location = new System.Drawing.Point(156, 92);
-            this.lbRecv.Name = "lbRecv";
-            this.lbRecv.Size = new System.Drawing.Size(66, 13);
-            this.lbRecv.TabIndex = 3;
-            this.lbRecv.Text = "Not connect";
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(66, 57);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(56, 13);
+            this.label2.TabIndex = 3;
+            this.label2.Text = "Number a:";
+            // 
+            // tbNuma
+            // 
+            this.tbNuma.Location = new System.Drawing.Point(154, 54);
+            this.tbNuma.Name = "tbNuma";
+            this.tbNuma.Size = new System.Drawing.Size(140, 20);
+            this.tbNuma.TabIndex = 4;
+            // 
+            // tbNumb
+            // 
+            this.tbNumb.Location = new System.Drawing.Point(154, 100);
+            this.tbNumb.Name = "tbNumb";
+            this.tbNumb.Size = new System.Drawing.Size(140, 20);
+            this.tbNumb.TabIndex = 4;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(281, 80);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(13, 13);
+            this.label5.TabIndex = 3;
+            this.label5.Text = "+";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(66, 103);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(56, 13);
+            this.label6.TabIndex = 3;
+            this.label6.Text = "Number b:";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(66, 137);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(40, 13);
+            this.label4.TabIndex = 3;
+            this.label4.Text = "Result:";
+            // 
+            // tbResult
+            // 
+            this.tbResult.Location = new System.Drawing.Point(154, 134);
+            this.tbResult.Name = "tbResult";
+            this.tbResult.Size = new System.Drawing.Size(140, 20);
+            this.tbResult.TabIndex = 4;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(556, 160);
-            this.Controls.Add(this.lbRecv);
+            this.ClientSize = new System.Drawing.Size(556, 173);
+            this.Controls.Add(this.tbResult);
+            this.Controls.Add(this.tbNumb);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.tbNuma);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.lbPORT);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.lbIP);
@@ -126,7 +186,13 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label lbPORT;
         private System.Windows.Forms.Button btnConnectRoot;
-        private System.Windows.Forms.Label lbRecv;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox tbNuma;
+        private System.Windows.Forms.TextBox tbNumb;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox tbResult;
     }
 }
 

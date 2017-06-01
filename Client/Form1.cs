@@ -30,14 +30,14 @@ namespace Client
 
             stm = tcpclnt.GetStream();
             ASCIIEncoding asen = new ASCIIEncoding();
-            string send = "Hello Server";
+            string send = tbNuma.Text + ";" + tbNumb.Text;
             byteSend = asen.GetBytes(send);
             stm.Write(byteSend, 0, byteSend.Length);
 
             byteReceive = new byte[100];
             int k = stm.Read(byteReceive, 0, 100);
             string recv = System.Text.Encoding.UTF8.GetString(byteReceive);
-            lbRecv.Text = recv;
+            tbResult.Text = recv;
             tcpclnt.Close();
         }
 
