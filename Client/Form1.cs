@@ -91,16 +91,21 @@ namespace Client
         }
         private void Form1_Closed(object sender, System.EventArgs e)
         {
-            tcpclnt = new TcpClient();
-            byte[] byteSend = ASCIIEncoding.ASCII.GetBytes("BYE");
-            if (currIp == "" && currPort == "")
+            try
             {
-                return;
+                tcpclnt = new TcpClient();
+                byte[] byteSend = ASCIIEncoding.ASCII.GetBytes("BYE");
+                if (currIp == "" && currPort == "")
+                {
+                    return;
+                }
+                tcpclnt.Connect(currIp, int.Parse(currPort));
+                stm = tcpclnt.GetStream();
+                stm.Write(byteSend, 0, byteSend.Length);
+                tcpclnt.Close();
             }
-            tcpclnt.Connect(currIp, int.Parse(currPort));
-            stm = tcpclnt.GetStream();
-            stm.Write(byteSend, 0, byteSend.Length);
-            tcpclnt.Close();
+            catch (Exception ex)
+            { }
         }
         private void ConnectRoot()
         {
