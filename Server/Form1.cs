@@ -158,7 +158,7 @@ namespace Server
                 //recv data
                 string Data = "";
                 Data = System.Text.Encoding.UTF8.GetString(b);
-                if (Data == "BYE")
+                if (Data.Substring(0, 3).Equals("BYE"))
                 {
                     status = "0";
                     return;
