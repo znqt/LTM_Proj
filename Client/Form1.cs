@@ -195,11 +195,18 @@ namespace Client
                                     tcpclnt.Close();
                                 }
                                 MessageBox.Show(string.Format("Reconnect to {0}:{1}", servIp, servPort));
+                                btnConnectRoot.Enabled = false;
                                 currIp = servIp;
                                 currPort = servPort;
                                 lbIP.Text = currIp;
                                 lbPORT.Text = currPort;
-
+                                if (tbNuma.Text != null && tbNumb != null && tbResult.Text == "")
+                                {
+                                    btnConnectServer.Enabled = false;
+                                    Thread rr = new Thread(ReqAndResp);
+                                    rr.Start(tbNuma.Text + ";" + tbNumb.Text);
+                                }
+                                
                             }
                         }
                         lasttime = DateTime.Now;
